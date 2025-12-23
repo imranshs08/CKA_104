@@ -46,7 +46,12 @@ kubectl get nodes
 ```
 
 ## Cleanup
-To avoid hitting playground limits or for a fresh start:
+To delete the AKS cluster and free up resources:
 ```bash
+# Define variables
+RG_NAME=$(az group list --query "[0].name" -o tsv)
+CLUSTER_NAME="myAKSCluster"
+
+# Delete the AKS cluster
 az aks delete --resource-group $RG_NAME --name $CLUSTER_NAME --yes --no-wait
 ```
