@@ -56,6 +56,11 @@ RG_NAME=$(az group list --query "[0].name" -o tsv)
 CLUSTER_NAME="myAKSCluster"
 # Get credentials
 az aks get-credentials --resource-group $RG_NAME --name $CLUSTER_NAME
+# Verify the setup
+kubectl config current-context
+kubectl get nodes
+kubectl get pods --all-namespaces
+
 ```
 
 ### 5. Verify the Setup
