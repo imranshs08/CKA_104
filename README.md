@@ -4,31 +4,46 @@ This guide provides step-by-step Azure CLI commands to spin up an AKS cluster wi
 
 ## Prerequisites
 - Active KodeKloud Azure Playground session.
-- Azure CLI installed (pre-installed in the playground terminal).
+- Azure CLI installed.
+
+## Authentication
+
+### Option 1: Interactive Login
+If you are running these commands from your local PowerShell or terminal:
+```powershell
+az login
+```
+
+### Option 2: Service Principal Login (Playground Credentials)
+If you have a **Client ID** and **Client Secret** from the playground:
+```powershell
+# Define credentials
+$CLIENT_ID="your-application-client-id"
+$CLIENT_SECRET="your-client-secret"
+$TENANT_ID="your-tenant-id" # Usually found in the portal URL or overview
+
+# Log in using Service Principal
+az login --service-principal -u $CLIENT_ID -p $CLIENT_SECRET --tenant $TENANT_ID
+```
+
+> [!TIP]
+> If you have multiple subscriptions, set the active one:
+> `az account set --subscription "Your-Subscription-ID"`
 
 ## Step-by-Step Setup
 
-### 1. Define Variables
-Set these variables to make the commands easier to run.
+### 1. Create the AKS Cluster
+We use 2 nodes and `Standard_D2s_v3` size to comply with playground policies. The Resource Group name is fetched dynamically.
 ```bash
-# Dynamically fetch the existing Resource Group name
+# Define variables
 RG_NAME=$(az group list --query "[0].name" -o tsv)
-LOCATION="eastus"
 CLUSTER_NAME="myAKSCluster"
-```
 
-### 2. Create a Resource Group
-```bash
-az group create --name $RG_NAME --location $LOCATION
-```
-
-### 3. Create the AKS Cluster
-We use 1 node and `Standard_D2s_v3` size to comply with playground policies.
-```bash
+# Create the cluster
 az aks create \
     --resource-group $RG_NAME \
     --name $CLUSTER_NAME \
-    --node-count 1 \
+    --node-count 2 \
     --node-vm-size Standard_D2s_v3 \
     --generate-ssh-keys
 ```
