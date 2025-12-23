@@ -11,7 +11,8 @@ This guide provides step-by-step Azure CLI commands to spin up an AKS cluster wi
 ### 1. Define Variables
 Set these variables to make the commands easier to run.
 ```bash
-RG_NAME="AKS_Lab_RG"
+# Dynamically fetch the existing Resource Group name
+RG_NAME=$(az group list --query "[0].name" -o tsv)
 LOCATION="eastus"
 CLUSTER_NAME="myAKSCluster"
 ```
