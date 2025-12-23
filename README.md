@@ -48,5 +48,5 @@ kubectl get nodes
 ## Cleanup
 To avoid hitting playground limits or for a fresh start:
 ```bash
-az group delete --name $RG_NAME --yes --no-wait
+az aks delete --resource-group $RG_NAME --name $CLUSTER_NAME --yes --no-wait
 ```
