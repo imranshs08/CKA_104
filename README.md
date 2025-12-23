@@ -23,14 +23,15 @@ az group create --name $RG_NAME --location $LOCATION
 ```
 
 ### 3. Create the AKS Cluster
-We use 2 nodes and `Standard_B2s` size to stay within playground limits.
+We use 2 nodes and `Standard_D2s_v3` size to comply with playground policies. Monitoring is disabled as required.
 ```bash
 az aks create \
     --resource-group $RG_NAME \
     --name $CLUSTER_NAME \
     --node-count 2 \
-    --node-vm-size Standard_B2s \
-    --generate-ssh-keys
+    --node-vm-size Standard_D2s_v3 \
+    --generate-ssh-keys \
+    --disable-monitoring
 ```
 
 ### 4. Get Cluster Credentials
