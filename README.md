@@ -51,6 +51,10 @@ az aks create \
 ### 4. Get Cluster Credentials
 Configure `kubectl` to connect to your new cluster.
 ```bash
+# Define variables
+RG_NAME=$(az group list --query "[0].name" -o tsv)
+CLUSTER_NAME="myAKSCluster"
+# Get credentials
 az aks get-credentials --resource-group $RG_NAME --name $CLUSTER_NAME
 ```
 
